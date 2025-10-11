@@ -3,8 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
+
+Route::get('/', function () {
+    return redirect()->route('administrator-login');
+});
+
+
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('administrator-login');
+Route::post('/login', [LoginController::class, 'login'])->name('administrator-login.submit');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
@@ -19,6 +25,9 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 |
 */
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('auth.dashboard');
+    })->name('dashboard');
 });
+

@@ -18,7 +18,7 @@
         <p style="color:green;">{{ session('success') }}</p>
     @endif
 
-    <form method="POST" action="{{ route('login.submit') }}">
+    <form method="POST" action="{{ route('administrator-login.submit') }}">
         @csrf
         <label>Username:</label><br>
         <input type="text" name="username" placeholder="Masukkan username" required><br><br>
