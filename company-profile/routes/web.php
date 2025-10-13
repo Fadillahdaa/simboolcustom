@@ -26,8 +26,17 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 */
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/superadmin/dashboard', function () {
+        return view('auth.dashboard'); // bisa pakai view khusus jika ingin berbeda
+    })->name('superadmin.dashboard');
+
+    Route::get('/admin/dashboard', function () {
+        return view('auth.dashboard'); // bisa pakai view admin khusus
+    })->name('admin.dashboard');
+
     Route::get('/dashboard', function () {
-        return view('auth.dashboard');
+        return view('auth.dashboard'); // bisa pakai view admin khusus
     })->name('dashboard');
 });
+
 
