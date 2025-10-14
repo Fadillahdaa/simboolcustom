@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-    $table->string('name')->after('id')->default('Super Admin');
-});
+            $table->string('name')->after('id')->default('Super Admin');
+        });
     }
 
     /**
