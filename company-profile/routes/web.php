@@ -42,7 +42,7 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::user()->role !== 'superadmin') {
             abort(403, 'Akses ditolak');
         }
-        return view('auth.superadmin');
+        return view('auth.dashboard');
     })->name('superadmin.dashboard');
 
     // Dashboard Admin
