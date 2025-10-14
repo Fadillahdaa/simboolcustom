@@ -36,5 +36,24 @@ class SuperAdminSeeder extends Seeder
                 'role' => 'admin',
             ]);
         }
+
+        if (!DB::table('users')->where('username', 'admin2')->first()) {
+            DB::table('users')->insert([
+                'name' => 'Admin 2',
+                'username' => 'admin2',
+                'password' => Hash::make('admin123'),
+                'role' => 'admin',
+            ]);
+        }
+
+        if (!DB::table('users')->where('username', 'admin3')->first()) {
+            DB::table('users')->insert([
+                'name' => 'Admin 3',
+                'username' => 'admin3',
+                'password' => Hash::make('admin123'),
+                'role' => 'admin',
+            ]);
+        }
+
     }
 }

@@ -18,7 +18,7 @@ Route::get('/', function () {
 | Login dan Logout
 |--------------------------------------------------------------------------
 */
-Route::get('/login', function () {
+Route::get('/administrator', function () {
     // Jika user sudah login, logout otomatis dulu
     if (Auth::check()) {
         Auth::logout();
@@ -28,7 +28,7 @@ Route::get('/login', function () {
     return app(LoginController::class)->showLoginForm();
 })->name('administrator-login');
 
-Route::post('/login', [LoginController::class, 'login'])
+Route::post('/administrator', [LoginController::class, 'login'])
     ->name('administrator-login.submit');
 
 Route::post('/logout', [LoginController::class, 'logout'])
