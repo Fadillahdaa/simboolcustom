@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-#use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -10,17 +9,32 @@ use Illuminate\Support\Facades\Hash;
 class SuperAdminSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Jalankan seeder untuk membuat Super Admin dan Admin.
      *
      * @return void
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'name' => 'Super Admin',
-            'username' => 'superadmin',
-            'password' => Hash::make('super123'),
-            'role' => 'superadmin',
-        ]);
+        // 🔹 Cek apakah Super Admin sudah ada
+        $superadmin = DB::table('users')->where('username', 'superadmin')->first();
+        if (!$superadmin) {
+            DB::table('users')->insert([
+                'name' => 'Super Admin',
+                'username' => 'superadmin',
+                'password' => Hash::make('super123'),
+                'role' => 'superadmin',
+            ]);
+        }
+
+        // 🔹 Tambahkan Admin (cek juga agar tidak duplikat)
+        $admin = DB::table('users')->where('username', 'admin1')->first();
+        if (!$admin) {
+            DB::table('users')->insert([
+                'name' => 'Admin 1',
+                'username' => 'admin1',
+                'password' => Hash::make('admin123'),
+                'role' => 'admin',
+            ]);
+        }
     }
 }
