@@ -8,7 +8,6 @@ use App\Http\Controllers\Auth\LoginController;
 |--------------------------------------------------------------------------
 | Halaman Depan (Pengunjung)
 |--------------------------------------------------------------------------
-| Pengunjung tidak perlu login
 */
 Route::get('/', function () {
     return view('welcome');
@@ -19,9 +18,15 @@ Route::get('/', function () {
 | Login dan Logout
 |--------------------------------------------------------------------------
 */
-Route::get('/login', [LoginController::class, 'showLoginForm'])
-    ->name('administrator-login')
-    ->middleware('guest'); // supaya user yang sudah login tidak bisa buka login lagi
+Route::get('/login', function () {
+    // Jika user sudah login, logout otomatis dulu
+    if (Auth::check()) {
+        Auth::logout();
+    }
+
+    // Panggil tampilan form login dari controller
+    return app(LoginController::class)->showLoginForm();
+})->name('administrator-login');
 
 Route::post('/login', [LoginController::class, 'login'])
     ->name('administrator-login.submit');
@@ -38,7 +43,6 @@ Route::middleware(['auth'])->group(function () {
 
     // Dashboard Superadmin
     Route::get('/superadmin/dashboard', function () {
-        // Hanya bisa diakses oleh superadmin
         if (Auth::user()->role !== 'superadmin') {
             abort(403, 'Akses ditolak');
         }
@@ -47,7 +51,6 @@ Route::middleware(['auth'])->group(function () {
 
     // Dashboard Admin
     Route::get('/admin/dashboard', function () {
-        // Hanya bisa diakses oleh admin
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Akses ditolak');
         }
