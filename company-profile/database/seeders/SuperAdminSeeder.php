@@ -25,7 +25,6 @@ class SuperAdminSeeder extends Seeder
                 'role' => 'superadmin',
             ]);
         }
-
         // 🔹 Tambahkan Admin (cek juga agar tidak duplikat)
         $admin = DB::table('users')->where('username', 'admin1')->first();
         if (!$admin) {
@@ -36,7 +35,6 @@ class SuperAdminSeeder extends Seeder
                 'role' => 'admin',
             ]);
         }
-
         if (!DB::table('users')->where('username', 'admin2')->first()) {
             DB::table('users')->insert([
                 'name' => 'Admin 2',
@@ -45,7 +43,6 @@ class SuperAdminSeeder extends Seeder
                 'role' => 'admin',
             ]);
         }
-
         if (!DB::table('users')->where('username', 'admin3')->first()) {
             DB::table('users')->insert([
                 'name' => 'Admin 3',
@@ -54,6 +51,5 @@ class SuperAdminSeeder extends Seeder
                 'role' => 'admin',
             ]);
         }
-
     }
 }

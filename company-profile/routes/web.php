@@ -3,15 +3,24 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\MarketplaceController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\AboutController;
 
 /*
 |--------------------------------------------------------------------------
 | Halaman Depan (Pengunjung)
 |--------------------------------------------------------------------------
 */
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +32,6 @@ Route::get('/administrator', function () {
     if (Auth::check()) {
         Auth::logout();
     }
-
     // Panggil tampilan form login dari controller
     return app(LoginController::class)->showLoginForm();
 })->name('administrator-login');
@@ -56,4 +64,47 @@ Route::middleware(['auth'])->group(function () {
         }
         return view('auth.admin');
     })->name('admin.dashboard');
+
+
+        // Kelola konten
+    Route::resource('/profile', \App\Http\Controllers\ProfilController::class);
+    Route::resource('/product', \App\Http\Controllers\ProductController::class);
+    Route::resource('/marketplace', \App\Http\Controllers\MarketplaceController::class);
+    Route::resource('/contact', \App\Http\Controllers\ContactController::class);
+    
 });
+
+
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+//     Route::get('/dashboard/profil', [ProfilController::class, 'index'])->name('dashboard.profil');
+//     Route::post('/dashboard/profil', [ProfilController::class, 'update'])->name('dashboard.profil.update');
+// });
+
+
+
+// halaman pengunjung
+
+//Route::get('/', [HomeController::class, 'index']); ada diatas ya
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/about', [AboutController::class, 'index'])->name('about.index');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/marketplaces', [MarketplaceController::class, 'index'])->name('marketplaces.index');
+Route::get('/marketplaces/{marketplace}', [MarketplaceController::class, 'show'])->name('marketplaces.show');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+Route::get('/profile/{profile}', [ProfileController::class, 'show'])->name('profile.show');
+
+
+
+// routes untuk admin mengelola konten homepage
+// di bagian middleware(['auth'])->group(...)
+Route::get('/admin/home-content/edit', [\App\Http\Controllers\Admin\HomeContentController::class, 'edit'])
+    ->name('admin.home-content.edit')
+    ->middleware('can:manage-content'); // opsional: gunakan gate/ability atau cek role di middleware
+
+Route::post('/admin/home-content/update', [\App\Http\Controllers\Admin\HomeContentController::class, 'update'])
+    ->name('admin.home-content.update')
+    ->middleware('can:manage-content');
+
