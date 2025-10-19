@@ -18,13 +18,13 @@ class ContactController extends Controller
     public function adminIndex()
     {
         $contacts = Contact::all();
-        return view('admin.contacts.index', compact('contacts'));
+        return view('dashboardadmin.contact.index', compact('contacts'));
     }
 
    public function editPage()
 {
     $contact = Contact::first(); // ambil data kontak pertama (atau sesuai kebutuhan)
-    return view('admin.contact.edit', compact('contact'));
+    return view('dashboardadmin.contact.edit', compact('contact'));
 }
 
 // Update data kontak
@@ -45,6 +45,6 @@ public function updatePage(Request $request)
         'description' => $request->description,
     ]);
 
-    return redirect()->route('admin.contact.editpage')->with('success', 'Kontak berhasil diperbarui');
+    return redirect()->route('dashboardadmin.contact.edit')->with('success', 'Kontak berhasil diperbarui');
 }
 }

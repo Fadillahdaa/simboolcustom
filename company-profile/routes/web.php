@@ -103,6 +103,19 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/product', \App\Http\Controllers\ProductController::class);
     Route::resource('/marketplace', \App\Http\Controllers\MarketplaceController::class);
     Route::resource('/contact', \App\Http\Controllers\ContactController::class);
+    /*
+    |--------------------------------------------------------------------------
+    | 🧑‍💼 ROUTE KHUSUS SUPERADMIN - KELOLA USER
+    |--------------------------------------------------------------------------
+    */
+    Route::middleware(function ($request, $next) {
+        if (Auth::user()->role !== 'superadmin') {
+            abort(403, 'Akses ditolak');
+        }
+        return $next($request);
+    })->group(function () {
+        Route::resource('/superadmin/users', \App\Http\Controllers\Admin\UserController::class);
+    });
     
 });
 
