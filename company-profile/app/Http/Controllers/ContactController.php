@@ -45,6 +45,6 @@ public function updatePage(Request $request)
         'description' => $request->description,
     ]);
 
-    return redirect()->route('dashboardadmin.contact.edit')->with('success', 'Kontak berhasil diperbarui');
+    return redirect()->route('admin.contact.editpage')->with('success', 'Kontak berhasil diperbarui');
 }
 }

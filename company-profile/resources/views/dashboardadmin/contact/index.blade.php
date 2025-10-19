@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layout.admin')
 
 @section('content')
 <div class="container">
@@ -26,7 +26,7 @@
                 <td>{{ $contact->email }}</td>
                 <td>{{ $contact->whatsapp }}</td>
                 <td>
-                    <a href="{{ route('admin.contact.edit', $contact->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="{{ route('contact.index', $contact->id) }}" class="btn btn-primary btn-sm">Edit</a>
                 </td>
             </tr>
             @endforeach
