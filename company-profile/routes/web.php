@@ -20,6 +20,16 @@ use App\Http\Controllers\AboutController;
 // })->name('home');
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/about', [AboutController::class, 'index'])->name('about.index');
+Route::get('/contact', [ContactController::class, 'frontendIndex'])->name('contact.index');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/marketplaces', [MarketplaceController::class, 'index'])->name('marketplaces.index');
+Route::get('/marketplaces/{marketplace}', [MarketplaceController::class, 'show'])->name('marketplaces.show');
+Route::get('/profile', [ProfilController::class, 'index'])->name('profile.index');
+Route::get('/profile/{profile}', [ProfilController::class, 'show'])->name('profile.show');
 
 
 /*
@@ -65,6 +75,9 @@ Route::middleware(['auth'])->group(function () {
         return view('auth.admin');
     })->name('admin.dashboard');
 
+    Route::get('/admin/contact', [ContactController::class, 'adminIndex'])->name('admin.contact.index');
+    Route::get('/admin/contact/{contact}/edit', [ContactController::class, 'edit'])->name('admin.contact.edit');
+    Route::put('/admin/contact/{contact}', [ContactController::class, 'update'])->name('admin.contact.update');
 
         // Kelola konten
     Route::resource('/profile', \App\Http\Controllers\ProfilController::class);
@@ -89,12 +102,14 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/about', [AboutController::class, 'index'])->name('about.index');
-Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::get('/contact', [ContactController::class, 'frontendIndex'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/marketplaces', [MarketplaceController::class, 'index'])->name('marketplaces.index');
 Route::get('/marketplaces/{marketplace}', [MarketplaceController::class, 'show'])->name('marketplaces.show');
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
 Route::get('/profile/{profile}', [ProfileController::class, 'show'])->name('profile.show');
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
 
 
 
