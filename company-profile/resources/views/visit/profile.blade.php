@@ -1,42 +1,48 @@
-<?php 
+@extends('layout.app') {{-- kalau kamu punya layout utama, kalau tidak bisa hapus baris ini --}}
 
-
-$profil = App\Models\Profil::first(); ?>
-<!-- <p>{{ $profil->tentang }}</p>
-<h3>Visi</h3>
-<p>{{ $profil->visi }}</p>
-<h3>Misi</h3>
-<p>{{ $profil->misi }}</p> -->
-
-
-
-<section class="py-5 text-center">
+@section('content')
+<section class="py-5 text-center bg-light">
   <div class="container">
+
+    {{-- Ambil data profil --}}
+    @php
+        $profil = App\Models\Profil::first();
+    @endphp
+
+    {{-- Gambar Profil --}}
     @if(!empty($profil->image))
-      <img src="{{ asset('storage/'.$profil->image) }}" class="img-fluid mb-4 rounded shadow" alt="Profil">
+      <img src="{{ asset('storage/'.$profil->image) }}" 
+           class="img-fluid mb-4 rounded shadow" 
+           alt="Profil" 
+           style="max-width: 350px;">
     @endif
 
-    <h2 class="fw-bold">{{ $profil->title ?? 'Tentang Kami' }}</h2>
-    <p class="mt-3">{{ $profil->tentang ?? 'Belum ada deskripsi.' }}</p>
+    {{-- Judul dan Tentang --}}
+    <h2 class="fw-bold text-dark">{{ $profil->title ?? 'Tentang Kami' }}</h2>
+    <p class="mt-3 text-secondary fs-5">{{ $profil->tentang ?? 'Belum ada deskripsi.' }}</p>
 
-    <div class="row mt-5">
-      <div class="col-md-6">
-        <div class="p-4 bg-dark text-white rounded-3 shadow-sm">
+    {{-- Visi & Misi --}}
+    <div class="row mt-5 g-4 justify-content-center">
+      <div class="col-md-5">
+        <div class="p-4 bg-dark text-white rounded-3 shadow-sm h-100">
           <h4 class="fw-bold mb-2">VISI</h4>
-          <p>{{ $profil->visi ?? '-' }}</p>
+          <p class="mb-0">{{ $profil->visi ?? '-' }}</p>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="p-4 bg-dark text-white rounded-3 shadow-sm">
+
+      <div class="col-md-5">
+        <div class="p-4 bg-dark text-white rounded-3 shadow-sm h-100">
           <h4 class="fw-bold mb-2">MISI</h4>
-          <p>{{ $profil->misi ?? '-' }}</p>
+          <p class="mb-0">{{ $profil->misi ?? '-' }}</p>
         </div>
       </div>
     </div>
 
+    {{-- Layanan --}}
     <div class="mt-5">
-      <h3 class="fw-bold">Layanan Kami</h3>
-      <p class="mt-2">{{ $profil->layanan ?? 'Belum ada layanan.' }}</p>
+      <h3 class="fw-bold text-dark">Layanan Kami</h3>
+      <p class="mt-2 text-secondary fs-5">{{ $profil->layanan ?? 'Belum ada layanan.' }}</p>
     </div>
   </div>
 </section>
+@endsection
