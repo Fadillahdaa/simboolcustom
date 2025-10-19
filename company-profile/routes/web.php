@@ -79,8 +79,13 @@ Route::middleware(['auth'])->group(function () {
             //KONTEN ADMIN
     // Kelola halaman kontak
     Route::get('/admin/contact', [ContactController::class, 'adminIndex'])->name('admin.contact.index');
-    Route::get('/admin/contact/{contact}/edit', [ContactController::class, 'edit'])->name('admin.contact.edit');
-    Route::put('/admin/contact/{contact}', [ContactController::class, 'update'])->name('admin.contact.update');
+    Route::get('/admin/contact', [ContactController::class, 'adminIndex'])->name('admin.contact.index');
+    Route::get('/admin/contact/edit', [\App\Http\Controllers\ContactController::class, 'editPage'])
+        ->name('admin.contact.editpage');
+
+    // Update data kontak
+    Route::post('/admin/contact/update', [\App\Http\Controllers\ContactController::class, 'updatePage'])
+        ->name('admin.contact.updatepage');
 
     // Kelola halaman profil
     Route::get('/{role}/profil/edit', [App\Http\Controllers\Admin\ProfilController::class, 'edit'])
