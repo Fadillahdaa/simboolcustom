@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Profil extends Model
 {
     use HasFactory;
+    protected $table = 'profil';
+    protected $fillable = [
+        'title',
+        'tentang',
+        'visi',
+        'misi',
+        'layanan',
+        'image',
+    ];
 }

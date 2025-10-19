@@ -3,20 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin</title>
+    <title>Dashboard {{ ucfirst(Auth::user()->role) }}</title>
 
-    <!-- Tambahkan Bootstrap agar tampilannya rapi -->
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background: linear-gradient(90deg, #6610f2, #9b00ff);
+        }
+        .sidebar {
+            min-height: 100vh;
+            background-color: #ffffff;
+            border-right: 1px solid #dee2e6;
+        }
+        .sidebar .list-group-item.active {
+            background-color: #6610f2;
+            border-color: #6610f2;
+            color: white;
+        }
+        .sidebar .list-group-item:hover {
+            background-color: #e9ecef;
+        }
+    </style>
 </head>
 
-<body class="bg-light">
+<body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="#">Admin Panel</a>
-            <div class="d-flex">
+            <a class="navbar-brand fw-bold" href="#">
+                Dashboard {{ ucfirst(Auth::user()->role) }}
+            </a>
+            <div class="d-flex align-items-center">
                 <span class="text-white me-3">
-                    👤 {{ Auth::user()->name }} ({{ Auth::user()->role }})
+                    👤 {{ Auth::user()->name }} ({{ ucfirst(Auth::user()->role) }})
                 </span>
                 <a class="btn btn-outline-light btn-sm"
                    href="{{ route('logout') }}"
@@ -32,57 +56,30 @@
         @csrf
     </form>
 
-    <!-- Konten Dashboard -->
-    <div class="container mt-4">
+    <!-- Konten -->
+    <div class="container-fluid mt-3">
         <div class="row">
-            <!-- Sidebar Menu -->
-            <div class="col-md-3 mb-3">
-                <div class="list-group shadow-sm">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 sidebar p-0">
+                <div class="list-group list-group-flush">
                     <a href="#" class="list-group-item list-group-item-action active">🏠 Dashboard</a>
-                    <a href="#" class="list-group-item list-group-item-action">📰 Kelola Artikel</a>
+                    <a href="{{ url(Auth::user()->role.'/home-content/edit') }}" class="list-group-item list-group-item-action">🖋 Kelola Halaman Home</a>
                     <a href="#" class="list-group-item list-group-item-action">📦 Kelola Produk</a>
-                    <a href="#" class="list-group-item list-group-item-action">👥 Kelola Pengguna</a>
-                    <a href="#" class="list-group-item list-group-item-action">⚙️ Pengaturan</a>
+                    <a href="#" class="list-group-item list-group-item-action">🛍 Kelola Marketplace</a>
+                    <a href="#" class="list-group-item list-group-item-action">📞 Kelola Kontak</a>
+                    <a href="#" class="list-group-item list-group-item-action">📘 Kelola Profil</a>
                 </div>
             </div>
 
-            <!-- Konten Utama -->
-            <div class="col-md-9">
-                <div class="card shadow-sm">
+            <!-- Konten utama -->
+            <div class="col-md-9 col-lg-10">
+                <div class="card shadow-sm mt-3">
                     <div class="card-header bg-white fw-bold">
-                        Selamat Datang, {{ Auth::user()->name }}
+                        Selamat Datang, {{ Auth::user()->name }} 👋
                     </div>
                     <div class="card-body">
-                        <p>Anda login sebagai <strong>{{ Auth::user()->role }}</strong>.</p>
-                        <p>Gunakan menu di samping untuk mengelola konten website seperti artikel, produk, dan data pengguna.</p>
-                    </div>
-                </div>
-
-                <!-- Contoh Statistik -->
-                <div class="row mt-4">
-                    <div class="col-md-4">
-                        <div class="card text-center shadow-sm">
-                            <div class="card-body">
-                                <h4 class="fw-bold">25</h4>
-                                <p>Artikel Dipublikasikan</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card text-center shadow-sm">
-                            <div class="card-body">
-                                <h4 class="fw-bold">12</h4>
-                                <p>Produk Aktif</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card text-center shadow-sm">
-                            <div class="card-body">
-                                <h4 class="fw-bold">8</h4>
-                                <p>Pengguna Terdaftar</p>
-                            </div>
-                        </div>
+                        <p>Anda login sebagai <strong>{{ ucfirst(Auth::user()->role) }}</strong>.</p>
+                        <p>Gunakan menu di sebelah kiri untuk mengelola konten website seperti halaman utama, produk, marketplace, dan kontak.</p>
                     </div>
                 </div>
             </div>

@@ -6,28 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('profil', function (Blueprint $table) {
             $table->id();
-            $table->text('tentang')->nullable();
-            $table->text('visi')->nullable();
-            $table->text('misi')->nullable();
+            $table->string('title')->nullable();      // Judul atau nama bagian profil
+            $table->text('tentang')->nullable();      // Tentang kami
+            $table->text('visi')->nullable();         // Visi
+            $table->text('misi')->nullable();         // Misi
+            $table->text('layanan')->nullable();      // Layanan
+            $table->string('image')->nullable();      // Gambar profil
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('profil');
     }
