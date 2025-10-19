@@ -23,7 +23,6 @@ use App\Http\Controllers\AboutController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
-Route::get('/about', [AboutController::class, 'index'])->name('about.index');
 Route::get('/contact', [ContactController::class, 'frontendIndex'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/marketplaces', [MarketplaceController::class, 'index'])->name('marketplaces.index');
@@ -105,6 +104,22 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/contact', \App\Http\Controllers\ContactController::class);
     
     
+
+    // ============================
+    // CRUD USER (khusus superadmin)
+    // ============================
+    Route::group(['prefix' => 'superadmin', 'middleware' => 'auth'], function () {
+        Route::group(['middleware' => function ($request, $next) {
+            if (Auth::user()->role !== 'superadmin') {
+                abort(403, 'Akses ditolak');
+            }
+            return $next($request);
+        }], function () {
+            Route::resource('users', \App\Http\Controllers\Admin\UserController::class)
+                ->names('superadmin.users');
+        });
+    });
+
 });
 
 
