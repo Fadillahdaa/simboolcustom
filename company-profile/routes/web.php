@@ -9,6 +9,8 @@ use App\Http\Controllers\MarketplaceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -75,11 +77,17 @@ Route::middleware(['auth'])->group(function () {
         return view('auth.admin');
     })->name('admin.dashboard');
 
+
     Route::get('/admin/contact', [ContactController::class, 'adminIndex'])->name('admin.contact.index');
-    Route::get('/admin/contact/{contact}/edit', [ContactController::class, 'edit'])->name('admin.contact.edit');
-    Route::put('/admin/contact/{contact}', [ContactController::class, 'update'])->name('admin.contact.update');
+    Route::get('/admin/contact/edit', [\App\Http\Controllers\ContactController::class, 'editPage'])
+        ->name('admin.contact.editpage');
+
+    // Update data kontak
+    Route::post('/admin/contact/update', [\App\Http\Controllers\ContactController::class, 'updatePage'])
+        ->name('admin.contact.updatepage');
 
         // Kelola konten
+    Route::resource('/users', UserController::class);
     Route::resource('/profile', \App\Http\Controllers\ProfilController::class);
     Route::resource('/product', \App\Http\Controllers\ProductController::class);
     Route::resource('/marketplace', \App\Http\Controllers\MarketplaceController::class);

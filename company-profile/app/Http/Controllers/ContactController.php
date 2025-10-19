@@ -21,22 +21,30 @@ class ContactController extends Controller
         return view('admin.contacts.index', compact('contacts'));
     }
 
-    public function edit(Contact $contact)
-    {
-        return view('admin.contacts.edit', compact('contact'));
-    }
+   public function editPage()
+{
+    $contact = Contact::first(); // ambil data kontak pertama (atau sesuai kebutuhan)
+    return view('admin.contact.edit', compact('contact'));
+}
 
-    public function update(Request $request, Contact $contact)
-    {
-        $data = $request->validate([
-            'alamat' => 'nullable|string|max:255',
-            'telepon' => 'nullable|string|max:20',
-            'email' => 'nullable|email|max:100',
-            'whatsapp' => 'nullable|string|max:20',
-        ]);
+// Update data kontak
+public function updatePage(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email',
+        'phone' => 'required|string',
+        'address' => 'required|string',
+        'description' => 'nullable|string'
+    ]);
 
-        $contact->update($data);
+    $contact = Contact::first();
+    $contact->update([
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'address' => $request->address,
+        'description' => $request->description,
+    ]);
 
-        return redirect()->route('admin.contact.index')->with('success', 'Contact berhasil diperbarui!');
-    }
+    return redirect()->route('admin.contact.editpage')->with('success', 'Kontak berhasil diperbarui');
+}
 }

@@ -15,7 +15,7 @@
                     <li class="nav-item"><a href="{{ route('profile.index') }}" class="nav-link">Profil</a></li>
                     <li class="nav-item"><a href="{{ route('product.index') }}" class="nav-link">Produk</a></li>
                     <li class="nav-item"><a href="{{ route('contact.index') }}" class="nav-link">Kontak</a></li>
-                    @if(Auth::user()->role == 'superadmin')
+                    @if(Auth::user()->role == 'admin')
                         <li class="nav-item"><a href="{{ route('users.index') }}" class="nav-link">Kelola User</a></li>
                     @endif
                 </ul>

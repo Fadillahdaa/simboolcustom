@@ -1,35 +1,34 @@
-@extends('layouts.admin')
+@extends('layout.app')
+
+@section('title', 'Edit Kontak')
 
 @section('content')
-<div class="container">
-    <h1>Edit Contact</h1>
+<div class="container mt-4">
+    <h1 class="mb-4">Edit Halaman Kontak</h1>
 
-    <form action="{{ route('admin.contact.update', $contact->id) }}" method="POST">
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
+    <form action="{{ route('admin.contact.updatepage') }}" method="POST">
         @csrf
-        @method('PUT')
-
-        <div class="mb-3">
-            <label>Alamat</label>
-            <input type="text" name="alamat" class="form-control" value="{{ old('alamat', $contact->alamat) }}">
-        </div>
-
-        <div class="mb-3">
-            <label>Telepon</label>
-            <input type="text" name="telepon" class="form-control" value="{{ old('telepon', $contact->telepon) }}">
-        </div>
-
         <div class="mb-3">
             <label>Email</label>
-            <input type="email" name="email" class="form-control" value="{{ old('email', $contact->email) }}">
+            <input type="email" name="email" class="form-control" value="{{ old('email', $contact->email) }}" required>
         </div>
-
         <div class="mb-3">
-            <label>Whatsapp</label>
-            <input type="text" name="whatsapp" class="form-control" value="{{ old('whatsapp', $contact->whatsapp) }}">
+            <label>Telepon</label>
+            <input type="text" name="phone" class="form-control" value="{{ old('phone', $contact->phone) }}" required>
         </div>
-
-        <button type="submit" class="btn btn-success">Simpan</button>
-        <a href="{{ route('admin.contact.index') }}" class="btn btn-secondary">Batal</a>
+        <div class="mb-3">
+            <label>Alamat</label>
+            <textarea name="address" class="form-control" rows="3" required>{{ old('address', $contact->address) }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label>Deskripsi / Catatan</label>
+            <textarea name="description" class="form-control" rows="4">{{ old('description', $contact->description) }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
     </form>
 </div>
 @endsection
