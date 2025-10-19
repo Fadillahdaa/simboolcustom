@@ -67,7 +67,9 @@
                     <a href="#" class="list-group-item list-group-item-action">📦 Kelola Produk</a>
                     <a href="#" class="list-group-item list-group-item-action">🛍 Kelola Marketplace</a>
                     <a href="#" class="list-group-item list-group-item-action">📞 Kelola Kontak</a>
-                    <a href="#" class="list-group-item list-group-item-action">📘 Kelola Profil</a>
+                    <a href="{{ url('/' . Auth::user()->role . '/profil/edit') }}" class="list-group-item list-group-item-action">
+                        👤 Kelola Profil
+                    </a>
                 </div>
             </div>
 
