@@ -12,11 +12,11 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a href="{{ route('superadmin.dashboard') }}" class="nav-link">Dashboard</a></li>
-                    <li class="nav-item"><a href="{{ route('manage.profile') }}" class="nav-link">Profil</a></li>
-                    <li class="nav-item"><a href="{{ route('manage.product') }}" class="nav-link">Produk</a></li>
-                    <li class="nav-item"><a href="{{ route('manage.contact') }}" class="nav-link">Kontak</a></li>
+                    <li class="nav-item"><a href="{{ route('profile.index') }}" class="nav-link">Profil</a></li>
+                    <li class="nav-item"><a href="{{ route('product.index') }}" class="nav-link">Produk</a></li>
+                    <li class="nav-item"><a href="{{ route('contact.index') }}" class="nav-link">Kontak</a></li>
                     @if(Auth::user()->role == 'superadmin')
-                        <li class="nav-item"><a href="{{ route('manage.users') }}" class="nav-link">Kelola User</a></li>
+                        <li class="nav-item"><a href="{{ route('users.index') }}" class="nav-link">Kelola User</a></li>
                     @endif
                 </ul>
                 <form method="POST" action="{{ route('logout') }}">
