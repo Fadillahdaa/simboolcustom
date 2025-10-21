@@ -10,3 +10,6 @@
     <p>Whatsapp: {{ $contact->whatsapp }}</p>
 </div>
 @endsection
+
+<?php
+
