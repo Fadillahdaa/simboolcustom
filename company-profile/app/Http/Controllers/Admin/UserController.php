@@ -3,49 +3,68 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    // Tampilkan daftar user
     public function index()
     {
         $users = User::all();
-        return view('admin.users.index', compact('users'));
+        return view('dashboardadmin.users.index', compact('users'));
     }
 
-    // Tampilkan form tambah user
     public function create()
     {
-        return view('admin.users.create');
+        return view('dashboardadmin.users.create');
     }
 
-    // Simpan user baru
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users',
-            'password' => 'required|string|min:6',
-            'role' => 'required|in:admin,superadmin',
+            'name' => 'required',
+            'username' => 'required|unique:users',
+            'password' => 'required|min:6',
+            'role' => 'required'
         ]);
 
         User::create([
             'name' => $request->name,
             'username' => $request->username,
             'password' => Hash::make($request->password),
-            'role' => $request->role,
+            'role' => $request->role
         ]);
 
-        return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan.');
+        return redirect()->route('superadmin.users.index')->with('success', 'User berhasil ditambahkan!');
     }
 
-    // Hapus user
+    public function edit(User $user)
+    {
+        return view('dashboardadmin.users.edit', compact('user'));
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $request->validate([
+            'name' => 'required',
+            'username' => "required|unique:users,username,{$user->id}",
+            'role' => 'required'
+        ]);
+
+        $data = $request->only('name', 'username', 'role');
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $user->update($data);
+
+        return redirect()->route('superadmin.users.index')->with('success', 'User berhasil diperbarui!');
+    }
+
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->back()->with('success', 'User berhasil dihapus.');
+        return redirect()->route('superadmin.users.index')->with('success', 'User berhasil dihapus!');
     }
 }

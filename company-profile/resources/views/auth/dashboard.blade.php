@@ -13,7 +13,7 @@
             background-color: #f8f9fa;
         }
         .navbar {
-            background: linear-gradient(90deg, #007bff, #6610f2);
+            background: linear-gradient(90deg, #6610f2, #9b00ff);
         }
         .sidebar {
             min-height: 100vh;
@@ -21,8 +21,8 @@
             border-right: 1px solid #dee2e6;
         }
         .sidebar .list-group-item.active {
-            background-color: #007bff;
-            border-color: #007bff;
+            background-color: #6610f2;
+            border-color: #6610f2;
             color: white;
         }
         .sidebar .list-group-item:hover {
@@ -35,12 +35,10 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="#">
-                Dashboard Superadmin
-            </a>
+            <a class="navbar-brand fw-bold" href="#">Dashboard Superadmin</a>
             <div class="d-flex align-items-center">
                 <span class="text-white me-3">
-                    👤 {{ Auth::user()->name }} ({{ ucfirst(Auth::user()->role) }})
+                    👤 {{ Auth::user()->name }} (Superadmin)
                 </span>
                 <a class="btn btn-outline-light btn-sm"
                    href="{{ route('logout') }}"
@@ -67,11 +65,10 @@
                     <a href="#" class="list-group-item list-group-item-action">📦 Kelola Produk</a>
                     <a href="#" class="list-group-item list-group-item-action">🛍 Kelola Marketplace</a>
                     <a href="#" class="list-group-item list-group-item-action">📞 Kelola Kontak</a>
-                    <a href="{{ url('/superadmin/profil/edit') }}" class="list-group-item list-group-item-action">
-                        👤 Kelola Profil
-                    </a>
-                    <a href="{{ url('/superadmin/users') }}" class="list-group-item list-group-item-action text-primary fw-bold">
-                        👥 Kelola Pengguna
+                    <a href="{{ url('/superadmin/profil/edit') }}" class="list-group-item list-group-item-action">👤 Kelola Profil</a>
+                    <!-- 👇 tambahan khusus superadmin -->
+                    <a href="{{ route('superadmin.users.index') }}" class="list-group-item list-group-item-action text-danger fw-bold">
+                        ⚙️ Kelola User
                     </a>
                 </div>
             </div>
@@ -83,8 +80,8 @@
                         Selamat Datang, {{ Auth::user()->name }} 👋
                     </div>
                     <div class="card-body">
-                        <p>Anda login sebagai <strong>{{ ucfirst(Auth::user()->role) }}</strong>.</p>
-                        <p>Gunakan menu di sebelah kiri untuk mengelola konten website dan pengguna sistem.</p>
+                        <p>Anda login sebagai <strong>Superadmin</strong>.</p>
+                        <p>Gunakan menu di sebelah kiri untuk mengelola seluruh konten website termasuk manajemen pengguna.</p>
                     </div>
                 </div>
             </div>
