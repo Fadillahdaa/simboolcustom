@@ -55,7 +55,8 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        // arahkan kembali ke halaman login administrator
+        return redirect()->route('administrator-login');
     }
 
     /**
