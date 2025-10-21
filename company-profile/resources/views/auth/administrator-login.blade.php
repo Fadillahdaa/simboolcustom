@@ -12,7 +12,7 @@
 
     <style>
         body {
-            background: linear-gradient(120deg, #007bff, #6610f2);
+            background: linear-gradient(120deg, #c7208aff, #7c0364ff, #2e132bff);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -23,7 +23,7 @@
         .login-wrapper {
             position: relative;
             backdrop-filter: blur(12px);
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(0, 0, 0, 0.15);
             border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
@@ -46,7 +46,7 @@
         }
 
         .input-group-text {
-            background-color: rgba(255,255,255,0.2);
+            background-color: rgba(255, 255, 255, 0.2);
             border: none;
             color: white;
         }
@@ -69,14 +69,14 @@
 
         .btn-login {
             background: white;
-            color: #6610f2;
+            color: #b5008dff;
             font-weight: 600;
             transition: all 0.3s ease;
             border: none;
         }
 
         .btn-login:hover {
-            background: #6610f2;
+            background: #4f004cff;
             color: white;
         }
 
@@ -96,7 +96,7 @@
 
     <div class="login-wrapper text-center">
         <div class="mb-4">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo" width="70" class="mb-2">
+            <img src="{{ asset('images/logo_simbool.png') }}" alt="Logo" width="70" class="mb-2">
             <h3 class="login-title">Login Administrator</h3>
         </div>
 

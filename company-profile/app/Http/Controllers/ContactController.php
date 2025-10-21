@@ -18,7 +18,7 @@ class ContactController extends Controller
     public function adminIndex()
     {
         $contacts = Contact::all();
-        return view('dashboardadmin.contact.index', compact('contacts'));
+        return view('dashboardadmin.contact.index', compact('contact'));
     }
 
    public function editPage()
