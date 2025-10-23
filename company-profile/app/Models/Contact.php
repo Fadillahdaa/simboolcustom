@@ -11,8 +11,11 @@ class Contact extends Model
 
     protected $fillable = [
         'alamat',
-        'telepon',
-        'email',
+        'gambar',
         'whatsapp',
+    ];
+
+    protected $casts = [
+        'whatsapp' => 'array',
     ];
 }

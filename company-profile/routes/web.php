@@ -23,8 +23,8 @@ use App\Http\Controllers\AboutController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/about', [AboutController::class, 'index'])->name('about.index');
 Route::get('/contact', [ContactController::class, 'frontendIndex'])->name('contact.index');
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/marketplaces', [MarketplaceController::class, 'index'])->name('marketplaces.index');
 Route::get('/marketplaces/{marketplace}', [MarketplaceController::class, 'show'])->name('marketplaces.show');
 Route::get('/profile', [ProfilController::class, 'index'])->name('profile.index');
@@ -70,20 +70,18 @@ Route::middleware(['auth'])->group(function () {
     // Dashboard Admin
     Route::get('/admin/dashboard', function () {
         if (Auth::user()->role !== 'admin') {
-            abort(403, 'Akses ditolak');
+            abortz(403, 'Akses ditolak');
         }
         return view('auth.admin');
     })->name('admin.dashboard');
 
             //KONTEN ADMIN
     // Kelola halaman kontak
-    Route::get('/admin/contact', [ContactController::class, 'adminIndex'])->name('admin.contact.index');
-    Route::get('/admin/contact', [ContactController::class, 'adminIndex'])->name('admin.contact.index');
-    Route::get('/admin/contact/edit', [\App\Http\Controllers\ContactController::class, 'editPage'])
+    Route::get('/{role}/contact/edit', [\App\Http\Controllers\ContactController::class, 'editPage'])
+        ->where('role', 'admin|superadmin')
         ->name('admin.contact.editpage');
-
-    // Update data kontak
-    Route::post('/admin/contact/update', [\App\Http\Controllers\ContactController::class, 'updatePage'])
+    Route::post('/{role}/contact/update', [\App\Http\Controllers\ContactController::class, 'updatePage'])
+        ->where('role', 'admin|superadmin')
         ->name('admin.contact.updatepage');
 
     // Kelola halaman profil
@@ -103,8 +101,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/marketplace', \App\Http\Controllers\MarketplaceController::class);
     Route::resource('/contact', \App\Http\Controllers\ContactController::class);
     
-    
-
     // ============================
     // CRUD USER (khusus superadmin)
     // ============================
@@ -119,7 +115,7 @@ Route::middleware(['auth'])->group(function () {
                 ->names('superadmin.users');
         });
     });
-
+    
 });
 
 
