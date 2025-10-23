@@ -101,6 +101,20 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/marketplace', \App\Http\Controllers\MarketplaceController::class);
     Route::resource('/contact', \App\Http\Controllers\ContactController::class);
     
+    // ============================
+    // CRUD USER (khusus superadmin)
+    // ============================
+    Route::group(['prefix' => 'superadmin', 'middleware' => 'auth'], function () {
+        Route::group(['middleware' => function ($request, $next) {
+            if (Auth::user()->role !== 'superadmin') {
+                abort(403, 'Akses ditolak');
+            }
+            return $next($request);
+        }], function () {
+            Route::resource('users', \App\Http\Controllers\Admin\UserController::class)
+                ->names('superadmin.users');
+        });
+    });
     
 });
 
