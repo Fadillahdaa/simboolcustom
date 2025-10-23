@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('contacts', function (Blueprint $table) {
-            $table->id();
-            $table->string('alamat')->nullable();
-            $table->string('telepon')->nullable();
-            $table->string('email')->nullable();
-            $table->string('whatsapp')->nullable();
-            $table->timestamps();
-        });
+         Schema::create('contacts', function (Blueprint $table) {
+        $table->id();
+        $table->string('alamat');
+        $table->string('gambar')->nullable();
+        $table->json('whatsapp')->nullable(); // disimpan sebagai array nomor
+        $table->timestamps();
+    });
     }
 
     /**
